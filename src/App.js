@@ -9,7 +9,7 @@ function App() {
     <div className="App">
       
       <Users/>
-      <Task/>
+      <Task />
       <Navbar/>
     </div>
 

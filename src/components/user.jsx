@@ -1,19 +1,41 @@
 import{Fragment} from 'react';
-import{useState} from 'react'
+import{useState,useEffect} from 'react'
+import propsTypes from 'prop-types'
+import classes from '../styles/user.module.css'
 const User=(props)=>{
-
+  const styles={backgrondColor:"red"}
      //const[user,setUser] = useState({name:'mohamed',age:26});
      const {name,age,id,onIncrement,onUser}=props
+     useEffect(()=>{
+          console.log('Every render');
+     })
+     //componentDismount
+     useEffect(()=>{
+          console.log('first rinded');
+     },[])
 
+  const handleClick=()=>onIncrement(id)
+  const handleUser=()=>onUser()
 //<button onClick={()=>setUser((oldUser)=>({...oldUser,age:oldUser.age+1}))}>increment</button>
 return(
      <Fragment>
-         <div>user name {name } and age {age}</div>
-         <button onClick={()=>onIncrement(id)}>increment</button>
-         <button onClick={()=>onUser()}>addUser</button>
+         <div className={classes.user}>user name {name } and age {age}</div>
+         <button  className={classes.btn} onClick={ handleClick}>increment</button>
+         <button className={classes.btn} onClick={handleUser}>addUser</button>
      </Fragment>
      
 )
 
 };
+User.prototype={
+     id:propsTypes.string.isRequired,
+     age:propsTypes.number,
+     name:propsTypes.string,
+     onIncrement:propsTypes.func.isRequired
+}
+
+User.defaultProps={
+     name:'anonymous',
+     age:18
+}
 export default User;

@@ -1,5 +1,6 @@
 import { useState } from "react";
 import User from './user'
+import AddUser from './addUser'
 import { v4 as uuid } from "uuid";
 const Users = () => {
     const [users,setUsers] = useState([
@@ -44,14 +45,20 @@ const Users = () => {
   
     setUsers(currentUsers) 
   }
+  const addUserForm=(user)=>{
+
+  setUsers(currentUsers=>([...currentUsers,{...user,age:+user.age,id:uuid()}]));
+
+  }
   return(
-      
+<>    <AddUser AddUser={addUserForm} />
     <div>
 				{users.map((user) => (
 					 <User key={user.id} onIncrement={incrementAge} onUser={incrementUser} {...user} />
 					
 				))}
-			</div>
+ 			</div>
+			 </> 
      
       )
    
