@@ -1,7 +1,7 @@
-import {useState}from 'react';
+import {useState,useEffect}from 'react';
 
 const AddUser = (props) => {
-   const {AddUser}=props
+   const {AddUser,isEnabled}=props
    const [user,setUser]=useState({name:'',age:''})
    const handleSubmit=(event)=>{
        event.preventDefault();
@@ -13,6 +13,10 @@ const AddUser = (props) => {
       const  {name,value}=e.target
       setUser((currentUser)=>({...currentUser,[name]:value}))
    }
+   useEffect(()=>{
+       if (! isEnabled) setUser({name:'',age:''})
+   },[isEnabled])
+
     return (
         <>
          <div>
@@ -21,7 +25,7 @@ const AddUser = (props) => {
         <form onSubmit={handleSubmit}>
            <input type='text' name='name' value={user.name} onChange={handleChange} />
            <input type='text' name='age'value={user.age}  onChange={handleChange} />
-           <input type="submit" value='add'/>
+           <input type="submit" value='add' disabled={!isEnabled}/>
 
         </form>
         </>

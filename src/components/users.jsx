@@ -1,7 +1,9 @@
-import { useState } from "react";
+import { useState ,useCallback} from "react";
 import User from './user'
 import AddUser from './addUser'
 import { v4 as uuid } from "uuid";
+import useToggle from "../hooks/useToggle";
+
 const Users = () => {
     const [users,setUsers] = useState([
 		{
@@ -26,38 +28,41 @@ const Users = () => {
 		},
 	]);
   //console.log(users);
-  const incrementAge=(userId)=>{
-
+  const incrementAge=useCallback( (userId)=>{
    setUsers( (currentUsers)=>currentUsers.map((user)=>
            user.id===userId?{...user,age:user.age+1}:user
         ) 
-
-
-
    )
-}
+},[])
    
 
-   const incrementUser=()=>{
+   const incrementUser=useCallback( ()=>{
    const newUser={id:uuid, name:"addedUser",age:70}
    const currentUsers=[...users]
    currentUsers.push(newUser)
   
     setUsers(currentUsers) 
-  }
-  const addUserForm=(user)=>{
+  },[users])
+  const addUserForm=useCallback( (user)=>{
 
   setUsers(currentUsers=>([...currentUsers,{...user,age:+user.age,id:uuid()}]));
 
-  }
+  },[])
+//custom hooks
+const [isEnabled,toggle]=useToggle()
+
+
+
   return(
-<>    <AddUser AddUser={addUserForm} />
+<>    <AddUser AddUser={addUserForm} isEnabled={isEnabled}/>
     <div>
 				{users.map((user) => (
 					 <User key={user.id} onIncrement={incrementAge} onUser={incrementUser} {...user} />
 					
 				))}
  			</div>
+			 <button onClick={toggle}>{isEnabled ?'Disable':'Enable'}</button>
+			 {isEnabled&&<div>Enable</div>}
 			 </> 
      
       )
