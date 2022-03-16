@@ -1,7 +1,8 @@
 import{Fragment} from 'react';
-import{useState,useEffect} from 'react'
+import{useState,useEffect,useMemo} from 'react'
 import propsTypes from 'prop-types'
 import classes from '../styles/user.module.css'
+import Users from './users';
 const User=(props)=>{
   const styles={backgrondColor:"red"}
      //const[user,setUser] = useState({name:'mohamed',age:26});
@@ -14,14 +15,19 @@ const User=(props)=>{
           console.log('first rinded');
      },[])
 
+
+
+
   const handleClick=()=>onIncrement(id)
   const handleUser=()=>onUser()
 //<button onClick={()=>setUser((oldUser)=>({...oldUser,age:oldUser.age+1}))}>increment</button>
 return(
      <Fragment>
          <div className={classes.user}>user name {name } and age {age}</div>
+         
          <button  className={classes.btn} onClick={ handleClick}>increment</button>
          <button className={classes.btn} onClick={handleUser}>addUser</button>
+       
      </Fragment>
      
 )

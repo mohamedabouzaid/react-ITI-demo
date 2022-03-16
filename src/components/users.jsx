@@ -1,32 +1,11 @@
-import { useState ,useCallback} from "react";
+import { useState ,useCallback, useMemo,useEffect} from "react";
 import User from './user'
 import AddUser from './addUser'
 import { v4 as uuid } from "uuid";
 import useToggle from "../hooks/useToggle";
-
+import axios from "axios";
 const Users = () => {
-    const [users,setUsers] = useState([
-		{
-			id: uuid(),
-			name: "Omar",
-			age: 29,
-		},
-		{
-			id: uuid(),
-			name: "Ahmed",
-			age: 33,
-		},
-		{
-			id: uuid(),
-			name: "Yasser",
-			age: 31,
-		},
-		{
-			id: uuid(),
-			name: "Hamsa",
-			age: 22,
-		},
-	]);
+    const [users,setUsers] = useState();
   //console.log(users);
   const incrementAge=useCallback( (userId)=>{
    setUsers( (currentUsers)=>currentUsers.map((user)=>
@@ -52,17 +31,52 @@ const Users = () => {
 const [isEnabled,toggle]=useToggle()
 
 
+     ///useMemo
+     const sum=useMemo(()=>{
+		 return ()=>{
+			return users?.length
+		}
+
+	 },[users?.length]
+
+	 )
+
+	//simulation of component will amount 
+   useEffect(()=>{
+	
+	
+	   return ()=>{
+		   //code 
+		   
+	   }
+
+   },[])
+   
+	//Api 
+	useEffect(()=>{
+		axios.get('https://jsonplaceholder.typicode.com/users')
+		.then( (response) =>{
+		
+		 setUsers(response.data)
+		})
+		   return ()=>{
+			   //code 
+			   
+		   }
+	
+	   },[])
 
   return(
-<>    <AddUser AddUser={addUserForm} isEnabled={isEnabled}/>
+<>   
     <div>
-				{users.map((user) => (
+				{users?.map((user) => (
 					 <User key={user.id} onIncrement={incrementAge} onUser={incrementUser} {...user} />
 					
 				))}
  			</div>
 			 <button onClick={toggle}>{isEnabled ?'Disable':'Enable'}</button>
 			 {isEnabled&&<div>Enable</div>}
+			 <div>heavy calculation {sum()}</div>
 			 </> 
      
       )
