@@ -1,8 +1,10 @@
 import React from 'react';
 import AddUser from '../components/addUser'
-//<AddUser AddUser={addUserForm} isEnabled={isEnabled}/>
+import {useContext,useState,useEffect} from 'react'
+import{UserContext} from '../module/usersModule'
 const AddUserPage = () => {
-    return <AddUser />
+    const{addUserForm,isEnabled}=useContext(UserContext)
+    return <AddUser AddUser={addUserForm} isEnabled={isEnabled}/>
 };
 
 export default AddUserPage;

@@ -1,15 +1,23 @@
 import {useState,useEffect,useRef}from 'react';
-
+import { useNavigate } from "react-router-dom";
 
 const AddUser = (props) => {
     //create ref
     const inputEl=useRef(null);
+
+    //navigation
+    const navigate=useNavigate()
+
    const {AddUser,isEnabled}=props
    const [user,setUser]=useState({name:'',age:''})
    const handleSubmit=(event)=>{
        event.preventDefault();
        AddUser(user);
        setUser({name:'',age:''})
+       navigate('/users')
+       
+
+
 
    }
    const handleChange=(e)=>{
