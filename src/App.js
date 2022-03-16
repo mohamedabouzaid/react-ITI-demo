@@ -1,11 +1,11 @@
-import logo from './logo.svg';
+
 import './App.css';
 import'./components/user'
 import Navbar from './components/navbar';
 import Home from './pages/home'
 import About from './pages/about'
-import Users from './pages/users'
-import AddUser from './pages/adduser'
+import UsersModule from './module/usersModule'
+
 
 import { BrowserRouter ,Route,Routes} from "react-router-dom";
 function App() {
@@ -17,8 +17,9 @@ function App() {
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="about" element={<About />} />
-        <Route path="users" element={<Users />} />
-        <Route path="users/add" element={<AddUser />} />
+        <Route path="users/*" element={< UsersModule />} />
+        <Route path="*" element={<div> 404 page</div>} />
+
       </Routes>
  
   </BrowserRouter>

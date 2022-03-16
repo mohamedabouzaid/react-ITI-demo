@@ -3,6 +3,7 @@ import{useState,useEffect,useMemo} from 'react'
 import propsTypes from 'prop-types'
 import classes from '../styles/user.module.css'
 import Users from './users';
+import{Link} from 'react-router-dom'
 const User=(props)=>{
   const styles={backgrondColor:"red"}
      //const[user,setUser] = useState({name:'mohamed',age:26});
@@ -27,6 +28,12 @@ return(
          
          <button  className={classes.btn} onClick={ handleClick}>increment</button>
          <button className={classes.btn} onClick={handleUser}>addUser</button>
+         <Link  to={`/users/${id}`}>
+         <button className={classes.btn} onClick={handleUser}>MoreDetail</button>
+         </Link>
+       
+         
+
        
      </Fragment>
      
